@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useCart } from "@/lib/cart";
 import { WHATSAPP_NUMBER } from "@/lib/catalog";
+import { useLang } from "@/lib/i18n";
 
 export function CartDrawer() {
   const { open, setOpen, items, total, setQty, remove, clear } = useCart();
+  const { t, lang, pick } = useLang();
   const [nombre, setNombre] = useState("");
   const [fecha, setFecha] = useState("");
   const [lugar, setLugar] = useState("");
@@ -12,8 +14,10 @@ export function CartDrawer() {
   if (!open) return null;
 
   const enviar = () => {
-    const lineas = items.map((l) => `• ${l.qty} x ${l.item.name} ($${l.qty * l.item.price})`);
-    const texto = [
+    const lineas = items.map(
+      (l) => `• ${l.qty} x ${pick(l.nameEs, l.nameEn)} ($${l.qty * l.price})`,
+    );
+    const es = [
       "¡Hola Perry's Balloons! 🎈 Quiero pedir una decoración:",
       "",
       ...lineas,
@@ -23,9 +27,19 @@ export function CartDrawer() {
       fecha && `Fecha del evento: ${fecha}`,
       lugar && `Lugar: ${lugar}`,
       notas && `Detalles: ${notas}`,
-    ]
-      .filter(Boolean)
-      .join("\n");
+    ];
+    const en = [
+      "Hi Perry's Balloons! 🎈 I'd like to order a decoration:",
+      "",
+      ...lineas,
+      "",
+      `Estimate: $${total}`,
+      nombre && `Name: ${nombre}`,
+      fecha && `Event date: ${fecha}`,
+      lugar && `Location: ${lugar}`,
+      notas && `Details: ${notas}`,
+    ];
+    const texto = (lang === "en" ? en : es).filter(Boolean).join("\n");
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(texto)}`, "_blank");
   };
 
@@ -37,28 +51,26 @@ export function CartDrawer() {
       />
       <aside className="relative flex h-full w-full max-w-md flex-col bg-card shadow-soft">
         <div className="flex items-center justify-between border-b border-border px-5 py-4">
-          <h2 className="font-display text-lg font-semibold">Mi pedido</h2>
+          <h2 className="font-display text-lg font-semibold">{t("cart.title")}</h2>
           <button onClick={() => setOpen(false)} className="text-sm text-muted-foreground">
-            Cerrar
+            {t("cart.close")}
           </button>
         </div>
 
         <div className="flex-1 space-y-4 overflow-y-auto px-5 py-4">
-          {items.length === 0 && (
-            <p className="text-sm text-muted-foreground">
-              Aún no has agregado decoraciones. Elige las que quieras en el inicio 🎈
-            </p>
-          )}
+          {items.length === 0 && <p className="text-sm text-muted-foreground">{t("cart.empty")}</p>}
           {items.map((l) => (
             <div key={l.id} className="flex gap-3 rounded-2xl border border-border p-3">
               <img
-                src={l.item.image}
-                alt={l.item.name}
+                src={l.image}
+                alt={pick(l.nameEs, l.nameEn)}
                 className="size-16 rounded-xl object-cover"
               />
               <div className="flex-1">
-                <p className="font-semibold">{l.item.name}</p>
-                <p className="text-sm text-muted-foreground">Desde ${l.item.price}</p>
+                <p className="font-semibold">{pick(l.nameEs, l.nameEn)}</p>
+                <p className="text-sm text-muted-foreground">
+                  {t("home.from")} ${l.price}
+                </p>
                 <div className="mt-2 flex items-center gap-2">
                   <button
                     onClick={() => setQty(l.id, l.qty - 1)}
@@ -77,7 +89,7 @@ export function CartDrawer() {
                     onClick={() => remove(l.id)}
                     className="ml-auto text-xs text-muted-foreground underline"
                   >
-                    Quitar
+                    {t("cart.remove")}
                   </button>
                 </div>
               </div>
@@ -89,7 +101,7 @@ export function CartDrawer() {
               <input
                 value={nombre}
                 onChange={(e) => setNombre(e.target.value)}
-                placeholder="Tu nombre"
+                placeholder={t("cart.name")}
                 maxLength={80}
                 className="w-full rounded-xl border border-input bg-background px-3 py-2 text-sm"
               />
@@ -102,14 +114,14 @@ export function CartDrawer() {
               <input
                 value={lugar}
                 onChange={(e) => setLugar(e.target.value)}
-                placeholder="Lugar del evento"
+                placeholder={t("cart.place")}
                 maxLength={120}
                 className="w-full rounded-xl border border-input bg-background px-3 py-2 text-sm"
               />
               <textarea
                 value={notas}
                 onChange={(e) => setNotas(e.target.value)}
-                placeholder="Colores, tema, detalles..."
+                placeholder={t("cart.notes")}
                 maxLength={500}
                 rows={3}
                 className="w-full rounded-xl border border-input bg-background px-3 py-2 text-sm"
@@ -120,22 +132,20 @@ export function CartDrawer() {
 
         <div className="space-y-3 border-t border-border px-5 py-4">
           <div className="flex items-center justify-between font-display text-lg">
-            <span>Estimado</span>
+            <span>{t("cart.estimate")}</span>
             <span className="text-primary">${total}</span>
           </div>
-          <p className="text-xs text-muted-foreground">
-            El precio final se confirma por WhatsApp según tamaño, colores y montaje.
-          </p>
+          <p className="text-xs text-muted-foreground">{t("cart.disclaimer")}</p>
           <button
             disabled={items.length === 0}
             onClick={enviar}
             className="w-full rounded-full bg-primary py-3 font-bold text-primary-foreground shadow-soft transition-transform hover:scale-[1.02] disabled:opacity-40"
           >
-            Enviar pedido por WhatsApp
+            {t("cart.send")}
           </button>
           {items.length > 0 && (
             <button onClick={clear} className="w-full text-xs text-muted-foreground underline">
-              Vaciar pedido
+              {t("cart.clear")}
             </button>
           )}
         </div>

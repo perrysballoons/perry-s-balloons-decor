@@ -2,6 +2,7 @@ import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/SiteLayout";
 import { WHATSAPP_NUMBER } from "@/lib/catalog";
+import { useLang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/contacto")({
   head: () => ({
@@ -23,20 +24,28 @@ export const Route = createFileRoute("/contacto")({
 });
 
 function Contacto() {
+  const { t, lang } = useLang();
   const [nombre, setNombre] = useState("");
   const [fecha, setFecha] = useState("");
   const [mensaje, setMensaje] = useState("");
 
   const enviar = (e: React.FormEvent) => {
     e.preventDefault();
-    const texto = [
-      "¡Hola Perry's Balloons! 🎈",
-      nombre && `Soy ${nombre}.`,
-      fecha && `Mi evento es el ${fecha}.`,
-      mensaje,
-    ]
-      .filter(Boolean)
-      .join("\n");
+    const parts =
+      lang === "en"
+        ? [
+            "Hi Perry's Balloons! 🎈",
+            nombre && `I'm ${nombre}.`,
+            fecha && `My event is on ${fecha}.`,
+            mensaje,
+          ]
+        : [
+            "¡Hola Perry's Balloons! 🎈",
+            nombre && `Soy ${nombre}.`,
+            fecha && `Mi evento es el ${fecha}.`,
+            mensaje,
+          ];
+    const texto = parts.filter(Boolean).join("\n");
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(texto)}`, "_blank");
   };
 
@@ -44,11 +53,9 @@ function Contacto() {
     <SiteLayout>
       <section className="surface-party">
         <div className="mx-auto max-w-3xl px-5 py-16 text-center md:py-20">
-          <p className="script text-2xl text-primary">Hablemos</p>
-          <h1 className="mt-2 text-4xl font-semibold md:text-5xl">Cuéntanos de tu fiesta</h1>
-          <p className="mt-4 text-muted-foreground">
-            Respondemos por WhatsApp con ideas, disponibilidad y precio final.
-          </p>
+          <p className="script text-2xl text-primary">{t("contact.kicker")}</p>
+          <h1 className="mt-2 text-4xl font-semibold md:text-5xl">{t("contact.title")}</h1>
+          <p className="mt-4 text-muted-foreground">{t("contact.subtitle")}</p>
         </div>
       </section>
 
@@ -58,7 +65,7 @@ function Contacto() {
           className="space-y-4 rounded-3xl border border-border bg-card p-6 shadow-soft"
         >
           <div>
-            <label className="text-sm font-semibold">Tu nombre</label>
+            <label className="text-sm font-semibold">{t("contact.name")}</label>
             <input
               value={nombre}
               onChange={(e) => setNombre(e.target.value)}
@@ -68,7 +75,7 @@ function Contacto() {
             />
           </div>
           <div>
-            <label className="text-sm font-semibold">Fecha del evento</label>
+            <label className="text-sm font-semibold">{t("contact.date")}</label>
             <input
               type="date"
               value={fecha}
@@ -77,25 +84,25 @@ function Contacto() {
             />
           </div>
           <div>
-            <label className="text-sm font-semibold">¿Qué necesitas?</label>
+            <label className="text-sm font-semibold">{t("contact.need")}</label>
             <textarea
               value={mensaje}
               onChange={(e) => setMensaje(e.target.value)}
               required
               rows={5}
               maxLength={800}
-              placeholder="Tema, colores, lugar, cantidad de invitados..."
+              placeholder={t("contact.placeholder")}
               className="mt-1 w-full rounded-xl border border-input bg-background px-3 py-2"
             />
           </div>
           <button className="w-full rounded-full bg-primary py-3 font-bold text-primary-foreground shadow-soft transition-transform hover:scale-[1.02]">
-            Enviar por WhatsApp
+            {t("contact.send")}
           </button>
         </form>
 
         <div className="space-y-4 text-muted-foreground">
           <div className="rounded-3xl bg-secondary/50 p-6">
-            <h2 className="font-display text-xl text-foreground">Escríbenos</h2>
+            <h2 className="font-display text-xl text-foreground">{t("contact.writeUs")}</h2>
             <p className="mt-2">
               WhatsApp:{" "}
               <a className="font-semibold text-primary" href={`https://wa.me/${WHATSAPP_NUMBER}`}>
@@ -103,14 +110,11 @@ function Contacto() {
                 {WHATSAPP_NUMBER.slice(7)}
               </a>
             </p>
-            <p className="mt-1">📍 Miami, FL y alrededores</p>
+            <p className="mt-1">{t("contact.area")}</p>
           </div>
           <div className="rounded-3xl bg-secondary/50 p-6">
-            <h2 className="font-display text-xl text-foreground">Reservas</h2>
-            <p className="mt-2">
-              Recomendamos reservar con 2 semanas de anticipación. Para fechas cercanas,
-              escríbenos igual y buscamos la forma 💗
-            </p>
+            <h2 className="font-display text-xl text-foreground">{t("contact.bookings")}</h2>
+            <p className="mt-2">{t("contact.bookingsText")}</p>
           </div>
         </div>
       </section>

@@ -1,16 +1,34 @@
 import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { useCart } from "@/lib/cart";
+import { useLang } from "@/lib/i18n";
 import { CartDrawer } from "./CartDrawer";
-
-const nav = [
-  { to: "/", label: "Inicio" },
-  { to: "/sobre-nosotros", label: "Sobre Nosotros" },
-  { to: "/contacto", label: "Contacto" },
-] as const;
 
 export function SiteLayout({ children }: { children: ReactNode }) {
   const { count, setOpen } = useCart();
+  const { t, lang, setLang } = useLang();
+
+  const nav = [
+    { to: "/", label: t("nav.home") },
+    { to: "/sobre-nosotros", label: t("nav.about") },
+    { to: "/contacto", label: t("nav.contact") },
+  ] as const;
+
+  const LangSwitch = () => (
+    <div className="inline-flex overflow-hidden rounded-full border border-border text-xs font-bold">
+      {(["es", "en"] as const).map((l) => (
+        <button
+          key={l}
+          onClick={() => setLang(l)}
+          className={`px-3 py-1.5 uppercase transition-colors ${
+            lang === l ? "bg-primary text-primary-foreground" : "text-muted-foreground"
+          }`}
+        >
+          {l}
+        </button>
+      ))}
+    </div>
+  );
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -32,15 +50,18 @@ export function SiteLayout({ children }: { children: ReactNode }) {
               </Link>
             ))}
           </nav>
-          <button
-            onClick={() => setOpen(true)}
-            className="ml-auto inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-bold text-primary-foreground shadow-soft transition-transform hover:scale-105 md:ml-0"
-          >
-            Mi pedido
-            <span className="grid size-6 place-items-center rounded-full bg-primary-foreground/25 text-xs">
-              {count}
-            </span>
-          </button>
+          <div className="ml-auto flex items-center gap-3 md:ml-0">
+            <LangSwitch />
+            <button
+              onClick={() => setOpen(true)}
+              className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-bold text-primary-foreground shadow-soft transition-transform hover:scale-105"
+            >
+              {t("nav.order")}
+              <span className="grid size-6 place-items-center rounded-full bg-primary-foreground/25 text-xs">
+                {count}
+              </span>
+            </button>
+          </div>
         </div>
         <nav className="flex justify-center gap-6 border-t border-border/60 px-5 py-2 text-sm font-semibold md:hidden">
           {nav.map((n) => (
@@ -62,8 +83,13 @@ export function SiteLayout({ children }: { children: ReactNode }) {
       <footer className="mt-24 border-t border-border/60 bg-secondary/40">
         <div className="mx-auto flex max-w-6xl flex-col gap-2 px-5 py-10 text-sm text-muted-foreground md:flex-row md:items-center md:justify-between">
           <p className="font-display text-base text-foreground">Perry's Balloons</p>
-          <p>📍 Miami, FL · Decoraciones para fiestas y eventos</p>
-          <p>© {new Date().getFullYear()} Perry's Balloons</p>
+          <p>{t("footer.tagline")}</p>
+          <p className="flex items-center gap-3">
+            <span>© {new Date().getFullYear()} Perry's Balloons</span>
+            <Link to="/auth" className="underline">
+              {t("nav.admin")}
+            </Link>
+          </p>
         </div>
       </footer>
 

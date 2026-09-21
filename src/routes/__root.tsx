@@ -12,6 +12,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { CartProvider } from "../lib/cart";
+import { LangProvider } from "../lib/i18n";
 
 function NotFoundComponent() {
   return (
@@ -120,10 +121,12 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <CartProvider>
-        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-        <Outlet />
-      </CartProvider>
+      <LangProvider>
+        <CartProvider>
+          {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+          <Outlet />
+        </CartProvider>
+      </LangProvider>
     </QueryClientProvider>
   );
 }

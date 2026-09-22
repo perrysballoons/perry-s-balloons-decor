@@ -97,6 +97,16 @@ const dict = {
     "admin.confirm": "¿Eliminar esta decoración?",
     "admin.viewSite": "Ver sitio",
     "admin.hidden": "Oculta",
+    "admin.panel": "Panel de administración",
+    "admin.tabDecorations": "Decoraciones",
+    "admin.tabCategories": "Categorías",
+    "admin.catTitle": "Categorías",
+    "admin.newCategory": "Nueva categoría",
+    "admin.slug": "Identificador (slug)",
+    "admin.confirmCat":
+      "¿Eliminar esta categoría? Las decoraciones quedarán sin categoría.",
+    "admin.catEmpty": "Aún no hay categorías.",
+    "admin.decoCount": "decoraciones",
   },
   en: {
     "nav.home": "Home",
@@ -190,6 +200,15 @@ const dict = {
     "admin.confirm": "Delete this decoration?",
     "admin.viewSite": "View site",
     "admin.hidden": "Hidden",
+    "admin.panel": "Admin panel",
+    "admin.tabDecorations": "Decorations",
+    "admin.tabCategories": "Categories",
+    "admin.catTitle": "Categories",
+    "admin.newCategory": "New category",
+    "admin.slug": "Identifier (slug)",
+    "admin.confirmCat": "Delete this category? Its decorations will have no category.",
+    "admin.catEmpty": "No categories yet.",
+    "admin.decoCount": "decorations",
   },
 } as const;
 

@@ -97,6 +97,16 @@ const dict = {
     "admin.confirm": "¿Eliminar esta decoración?",
     "admin.viewSite": "Ver sitio",
     "admin.hidden": "Oculta",
+    "admin.panel": "Panel de administración",
+    "admin.tabDecorations": "Decoraciones",
+    "admin.tabCategories": "Categorías",
+    "admin.catTitle": "Categorías",
+    "admin.newCategory": "Nueva categoría",
+    "admin.slug": "Identificador (slug)",
+    "admin.confirmCat":
+      "¿Eliminar esta categoría? Las decoraciones quedarán sin categoría.",
+    "admin.catEmpty": "Aún no hay categorías.",
+    "admin.decoCount": "decoraciones",
   },
   en: {
     "nav.home": "Home",

@@ -200,6 +200,15 @@ const dict = {
     "admin.confirm": "Delete this decoration?",
     "admin.viewSite": "View site",
     "admin.hidden": "Hidden",
+    "admin.panel": "Admin panel",
+    "admin.tabDecorations": "Decorations",
+    "admin.tabCategories": "Categories",
+    "admin.catTitle": "Categories",
+    "admin.newCategory": "New category",
+    "admin.slug": "Identifier (slug)",
+    "admin.confirmCat": "Delete this category? Its decorations will have no category.",
+    "admin.catEmpty": "No categories yet.",
+    "admin.decoCount": "decorations",
   },
 } as const;
 

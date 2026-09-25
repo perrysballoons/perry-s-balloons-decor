@@ -33,10 +33,10 @@ export function SiteLayout({ children }: { children: ReactNode }) {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <header className="sticky top-0 z-40 border-b border-primary/35 bg-secondary/95 text-secondary-foreground backdrop-blur">
+      <header className="sticky top-0 z-40 border-b border-primary/35 bg-background/95 text-foreground backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center gap-4 px-5 py-3">
           <Link to="/" className="shrink-0" aria-label="Perry's Balloons">
-            <img src={logoAsset.url} alt="Perry's Balloons" className="h-12 w-auto brightness-0 invert md:h-14" />
+            <img src={logoAsset.url} alt="Perry's Balloons" className="h-12 w-auto md:h-14" />
           </Link>
           <nav className="ml-auto hidden gap-6 text-sm font-semibold md:flex">
             {nav.map((n) => (
@@ -44,7 +44,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
                 key={n.to}
                 to={n.to}
                 activeOptions={{ exact: n.to === "/" }}
-                className="text-secondary-foreground/70 transition-colors hover:text-primary"
+                className="text-muted-foreground transition-colors hover:text-primary"
                 activeProps={{ className: "text-primary" }}
               >
                 {n.label}
@@ -70,7 +70,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
               key={n.to}
               to={n.to}
               activeOptions={{ exact: n.to === "/" }}
-              className="text-secondary-foreground/70"
+              className="text-muted-foreground"
               activeProps={{ className: "text-primary" }}
             >
               {n.label}
@@ -81,9 +81,9 @@ export function SiteLayout({ children }: { children: ReactNode }) {
 
       <main>{children}</main>
 
-      <footer className="mt-24 border-t border-primary/30 bg-secondary text-secondary-foreground">
-        <div className="mx-auto flex max-w-6xl flex-col gap-4 px-5 py-10 text-sm text-secondary-foreground/70 md:flex-row md:items-center md:justify-between">
-          <img src={logoAsset.url} alt="Perry's Balloons" className="h-12 w-auto self-start brightness-0 invert" />
+      <footer className="mt-24 border-t border-primary/30 bg-muted text-foreground">
+        <div className="mx-auto flex max-w-6xl flex-col gap-4 px-5 py-10 text-sm text-muted-foreground md:flex-row md:items-center md:justify-between">
+          <img src={logoAsset.url} alt="Perry's Balloons" className="h-12 w-auto self-start" />
           <p>{t("footer.tagline")}</p>
           <p className="flex items-center gap-3">
             <span>© {new Date().getFullYear()} Perry's Balloons</span>

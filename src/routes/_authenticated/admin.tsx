@@ -35,10 +35,10 @@ function AdminLayout() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <header className="border-b border-primary/30 bg-secondary text-secondary-foreground">
+      <header className="border-b border-primary/30 bg-card text-foreground">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-3 px-5 py-4">
           <div className="flex items-center gap-4">
-            <img src={logoAsset.url} alt="Perry's Balloons" className="h-11 w-auto brightness-0 invert" />
+            <img src={logoAsset.url} alt="Perry's Balloons" className="h-11 w-auto" />
             <h1 className="hidden font-display text-lg font-semibold sm:block">{t("admin.panel")}</h1>
           </div>
           <div className="ml-auto flex items-center gap-3 text-sm">
@@ -53,7 +53,7 @@ function AdminLayout() {
                 </button>
               ))}
             </div>
-             <Link to="/" className="text-secondary-foreground/70 underline">
+             <Link to="/" className="text-muted-foreground underline">
               {t("admin.viewSite")}
             </Link>
             <button onClick={signOut} className="font-semibold text-primary">

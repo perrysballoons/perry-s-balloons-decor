@@ -3,6 +3,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { supabase } from "@/integrations/supabase/client";
 import { useLang } from "@/lib/i18n";
 import { SiteLayout } from "@/components/SiteLayout";
+import logoAsset from "@/assets/perrys-balloons-logo.png.asset.json";
 
 export const Route = createFileRoute("/auth")({
   ssr: false,
@@ -52,7 +53,8 @@ function AuthPage() {
   return (
     <SiteLayout>
       <section className="mx-auto max-w-md px-5 py-20">
-        <div className="rounded-3xl border border-border bg-card p-8 shadow-soft">
+        <div className="border border-border bg-card p-8 shadow-soft">
+          <img src={logoAsset.url} alt="Perry's Balloons" className="mx-auto mb-7 h-20 w-auto" />
           <h1 className="font-display text-2xl font-semibold">{t("auth.title")}</h1>
           <form onSubmit={submit} className="mt-6 space-y-4">
             <div>

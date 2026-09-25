@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Use the CDN-hosted official Perry's Balloons logo asset across branded surfaces; this keeps one authoritative logo source.

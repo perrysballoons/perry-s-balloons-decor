@@ -39,13 +39,13 @@ function Index() {
   return (
     <SiteLayout>
       <section className="surface-party">
-        <div className="mx-auto grid max-w-6xl items-center gap-10 px-5 py-16 md:grid-cols-2 md:py-24">
+        <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 py-14 md:grid-cols-[0.9fr_1.1fr] md:py-20">
           <div>
-            <p className="script text-2xl text-primary">{t("home.location")}</p>
-            <h1 className="mt-2 text-4xl leading-tight font-semibold md:text-6xl">
+            <p className="text-xs font-bold tracking-[0.2em] text-primary uppercase">{t("home.location")}</p>
+            <h1 className="mt-5 text-4xl leading-tight font-medium md:text-6xl">
               {t("home.title")}
             </h1>
-            <p className="mt-5 max-w-md text-lg text-muted-foreground">{t("home.subtitle")}</p>
+            <p className="mt-5 max-w-md text-lg text-secondary-foreground/70">{t("home.subtitle")}</p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a
                 href="#decoraciones"
@@ -55,19 +55,19 @@ function Index() {
               </a>
               <Link
                 to="/contacto"
-                className="rounded-full border border-primary px-6 py-3 font-bold text-primary"
+                className="rounded-full border border-primary px-6 py-3 font-bold text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
               >
                 {t("home.cta2")}
               </Link>
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-2 border border-primary/30 p-2">
             {gallery.map((g, i) => (
               <img
                 key={g.src}
                 src={g.src}
                 alt={g.alt}
-                className={`w-full rounded-3xl object-cover shadow-soft ${i % 2 ? "h-56 md:h-72" : "h-44 md:h-56"}`}
+                className={`w-full object-cover ${i % 2 ? "h-56 md:h-72" : "h-44 md:h-56"}`}
               />
             ))}
           </div>
@@ -111,12 +111,12 @@ function Index() {
           {shown.map((item) => (
             <article
               key={item.id}
-              className="flex flex-col overflow-hidden rounded-3xl border border-border bg-card shadow-soft"
+               className="group flex flex-col overflow-hidden border border-border bg-card shadow-soft"
             >
               <img
                 src={item.image_url}
                 alt={pick(item.name_es, item.name_en)}
-                className="h-48 w-full object-cover"
+                 className="h-56 w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
               />
               <div className="flex flex-1 flex-col p-5">
                 {pick(item.tag_es, item.tag_en) && (
@@ -154,7 +154,7 @@ function Index() {
       </section>
 
       <section className="mx-auto max-w-6xl px-5 pb-8">
-        <div className="grid gap-6 rounded-3xl bg-secondary/50 p-8 md:grid-cols-3">
+        <div className="grid gap-8 border-y border-primary/30 bg-secondary p-8 text-secondary-foreground md:grid-cols-3">
           {[
             [t("home.step1"), t("home.step1d")],
             [t("home.step2"), t("home.step2d")],
@@ -162,7 +162,7 @@ function Index() {
           ].map(([title, desc]) => (
             <div key={title}>
               <h3 className="font-display text-xl">{title}</h3>
-              <p className="mt-1 text-sm text-muted-foreground">{desc}</p>
+               <p className="mt-1 text-sm text-secondary-foreground/65">{desc}</p>
             </div>
           ))}
         </div>

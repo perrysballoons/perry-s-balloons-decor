@@ -51,7 +51,7 @@ export function CartDrawer() {
       />
       <aside className="relative flex h-full w-full max-w-md flex-col bg-card shadow-soft">
         <div className="flex items-center justify-between border-b border-border px-5 py-4">
-          <h2 className="font-display text-lg font-semibold">{t("cart.title")}</h2>
+          <h2 className="font-display text-xl font-semibold">{t("cart.title")}</h2>
           <button onClick={() => setOpen(false)} className="text-sm text-muted-foreground">
             {t("cart.close")}
           </button>
@@ -60,11 +60,11 @@ export function CartDrawer() {
         <div className="flex-1 space-y-4 overflow-y-auto px-5 py-4">
           {items.length === 0 && <p className="text-sm text-muted-foreground">{t("cart.empty")}</p>}
           {items.map((l) => (
-            <div key={l.id} className="flex gap-3 rounded-2xl border border-border p-3">
+            <div key={l.id} className="flex gap-3 border-b border-border py-4">
               <img
                 src={l.image}
                 alt={pick(l.nameEs, l.nameEn)}
-                className="size-16 rounded-xl object-cover"
+                className="size-16 object-cover"
               />
               <div className="flex-1">
                 <p className="font-semibold">{pick(l.nameEs, l.nameEn)}</p>
@@ -74,14 +74,14 @@ export function CartDrawer() {
                 <div className="mt-2 flex items-center gap-2">
                   <button
                     onClick={() => setQty(l.id, l.qty - 1)}
-                    className="size-7 rounded-full bg-secondary font-bold"
+                    className="size-7 rounded-full bg-secondary font-bold text-secondary-foreground"
                   >
                     –
                   </button>
                   <span className="w-6 text-center text-sm font-semibold">{l.qty}</span>
                   <button
                     onClick={() => setQty(l.id, l.qty + 1)}
-                    className="size-7 rounded-full bg-secondary font-bold"
+                    className="size-7 rounded-full bg-secondary font-bold text-secondary-foreground"
                   >
                     +
                   </button>

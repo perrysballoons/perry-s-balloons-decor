@@ -29,9 +29,9 @@ function About() {
     <SiteLayout>
       <section className="surface-party">
         <div className="mx-auto max-w-3xl px-5 py-16 text-center md:py-24">
-          <p className="script text-2xl text-primary">{t("about.kicker")}</p>
+          <p className="text-xs font-bold tracking-[0.2em] text-primary uppercase">{t("about.kicker")}</p>
           <h1 className="mt-2 text-4xl font-semibold md:text-5xl">{t("about.title")}</h1>
-          <p className="mt-5 text-lg text-muted-foreground">{t("about.intro")}</p>
+          <p className="mt-5 text-lg text-secondary-foreground/70">{t("about.intro")}</p>
         </div>
       </section>
 
@@ -65,7 +65,7 @@ function About() {
               key={g.src}
               src={g.src}
               alt={g.alt}
-              className="h-52 w-full rounded-3xl object-cover shadow-soft"
+              className="h-52 w-full object-cover shadow-soft"
             />
           ))}
         </div>

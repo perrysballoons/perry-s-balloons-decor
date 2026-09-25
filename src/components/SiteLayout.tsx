@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { useCart } from "@/lib/cart";
 import { useLang } from "@/lib/i18n";
 import { CartDrawer } from "./CartDrawer";
+import logoAsset from "@/assets/perrys-balloons-logo.png.asset.json";
 
 export function SiteLayout({ children }: { children: ReactNode }) {
   const { count, setOpen } = useCart();
@@ -32,10 +33,10 @@ export function SiteLayout({ children }: { children: ReactNode }) {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <header className="sticky top-0 z-40 border-b border-border/60 bg-background/85 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center gap-4 px-5 py-4">
-          <Link to="/" className="font-display text-xl font-semibold tracking-tight">
-            Perry's <span className="text-primary">Balloons</span>
+      <header className="sticky top-0 z-40 border-b border-primary/35 bg-secondary/95 text-secondary-foreground backdrop-blur">
+        <div className="mx-auto flex max-w-6xl items-center gap-4 px-5 py-3">
+          <Link to="/" className="shrink-0" aria-label="Perry's Balloons">
+            <img src={logoAsset.url} alt="Perry's Balloons" className="h-12 w-auto brightness-0 invert md:h-14" />
           </Link>
           <nav className="ml-auto hidden gap-6 text-sm font-semibold md:flex">
             {nav.map((n) => (
@@ -43,7 +44,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
                 key={n.to}
                 to={n.to}
                 activeOptions={{ exact: n.to === "/" }}
-                className="text-muted-foreground transition-colors hover:text-primary"
+                className="text-secondary-foreground/70 transition-colors hover:text-primary"
                 activeProps={{ className: "text-primary" }}
               >
                 {n.label}
@@ -63,13 +64,13 @@ export function SiteLayout({ children }: { children: ReactNode }) {
             </button>
           </div>
         </div>
-        <nav className="flex justify-center gap-6 border-t border-border/60 px-5 py-2 text-sm font-semibold md:hidden">
+        <nav className="flex justify-center gap-6 border-t border-primary/20 px-5 py-2 text-sm font-semibold md:hidden">
           {nav.map((n) => (
             <Link
               key={n.to}
               to={n.to}
               activeOptions={{ exact: n.to === "/" }}
-              className="text-muted-foreground"
+              className="text-secondary-foreground/70"
               activeProps={{ className: "text-primary" }}
             >
               {n.label}
@@ -80,9 +81,9 @@ export function SiteLayout({ children }: { children: ReactNode }) {
 
       <main>{children}</main>
 
-      <footer className="mt-24 border-t border-border/60 bg-secondary/40">
-        <div className="mx-auto flex max-w-6xl flex-col gap-2 px-5 py-10 text-sm text-muted-foreground md:flex-row md:items-center md:justify-between">
-          <p className="font-display text-base text-foreground">Perry's Balloons</p>
+      <footer className="mt-24 border-t border-primary/30 bg-secondary text-secondary-foreground">
+        <div className="mx-auto flex max-w-6xl flex-col gap-4 px-5 py-10 text-sm text-secondary-foreground/70 md:flex-row md:items-center md:justify-between">
+          <img src={logoAsset.url} alt="Perry's Balloons" className="h-12 w-auto self-start brightness-0 invert" />
           <p>{t("footer.tagline")}</p>
           <p className="flex items-center gap-3">
             <span>© {new Date().getFullYear()} Perry's Balloons</span>

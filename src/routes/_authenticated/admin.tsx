@@ -2,6 +2,7 @@ import { createFileRoute, Link, Outlet, useNavigate } from "@tanstack/react-rout
 import { useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useLang } from "@/lib/i18n";
+import logoAsset from "@/assets/perrys-balloons-logo.png.asset.json";
 
 export const Route = createFileRoute("/_authenticated/admin")({
   head: () => ({
@@ -34,9 +35,12 @@ function AdminLayout() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <header className="border-b border-border bg-card">
+      <header className="border-b border-primary/30 bg-secondary text-secondary-foreground">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-3 px-5 py-4">
-          <h1 className="font-display text-xl font-semibold">{t("admin.panel")}</h1>
+          <div className="flex items-center gap-4">
+            <img src={logoAsset.url} alt="Perry's Balloons" className="h-11 w-auto brightness-0 invert" />
+            <h1 className="hidden font-display text-lg font-semibold sm:block">{t("admin.panel")}</h1>
+          </div>
           <div className="ml-auto flex items-center gap-3 text-sm">
             <div className="inline-flex overflow-hidden rounded-full border border-border text-xs font-bold">
               {(["es", "en"] as const).map((l) => (
@@ -49,7 +53,7 @@ function AdminLayout() {
                 </button>
               ))}
             </div>
-            <Link to="/" className="text-muted-foreground underline">
+             <Link to="/" className="text-secondary-foreground/70 underline">
               {t("admin.viewSite")}
             </Link>
             <button onClick={signOut} className="font-semibold text-primary">

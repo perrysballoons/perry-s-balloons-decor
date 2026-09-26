@@ -62,12 +62,12 @@ function Index() {
             </div>
           </div>
           <div className="grid grid-cols-2 gap-2 border border-primary/30 p-2">
-            {gallery.map((g, i) => (
+            {gallery.map((g) => (
               <img
                 key={g.src}
                 src={g.src}
                 alt={g.alt}
-                className={`w-full object-cover ${i % 2 ? "h-56 md:h-72" : "h-44 md:h-56"}`}
+                className="aspect-[4/3] w-full object-cover"
               />
             ))}
           </div>

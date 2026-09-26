@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { useCart } from "@/lib/cart";
 import { useLang } from "@/lib/i18n";
 import { CartDrawer } from "./CartDrawer";
+import { WHATSAPP_NUMBER } from "@/lib/catalog";
 import logoAsset from "@/assets/perrys-balloons-logo.png";
 
 export function SiteLayout({ children }: { children: ReactNode }) {
@@ -95,6 +96,18 @@ export function SiteLayout({ children }: { children: ReactNode }) {
       </footer>
 
       <CartDrawer />
+
+      <a
+        href={`https://wa.me/${WHATSAPP_NUMBER}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="WhatsApp"
+        className="fixed right-5 bottom-5 z-50 flex size-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition-transform hover:scale-110"
+      >
+        <svg viewBox="0 0 32 32" className="size-7 fill-current" aria-hidden="true">
+          <path d="M16.1 3C9.4 3 4 8.4 4 15.1c0 2.1.6 4.2 1.6 6L4 29l8.1-1.6c1.7.9 3.7 1.4 5.7 1.4h.1c6.7 0 12.1-5.4 12.1-12.1C29.9 8.4 24.5 3 18 3h-1.9zm6.9 17.1c-.3.8-1.7 1.6-2.4 1.7-.6.1-1.4.1-2.3-.1-.5-.2-1.2-.4-2.1-.8-3.7-1.6-6.1-5.4-6.3-5.6-.2-.3-1.5-2-1.5-3.8s.9-2.7 1.3-3.1c.3-.4.7-.5 1-.5h.7c.2 0 .5-.1.8.6.3.8 1.1 2.6 1.2 2.8.1.2.1.4 0 .6-.1.3-.2.4-.4.7-.2.2-.4.5-.6.7-.2.2-.4.4-.2.8.2.4 1 1.7 2.2 2.7 1.5 1.4 2.8 1.8 3.2 2 .4.2.6.1.9-.1.2-.3 1-1.2 1.3-1.6.3-.4.5-.3.9-.2.4.1 2.2 1 2.6 1.2.4.2.6.3.7.5.1.2.1 1-.3 1.8z" />
+        </svg>
+      </a>
     </div>
   );
 }

@@ -82,7 +82,12 @@ async function smtpSend(pass: string, subject: string, body: string) {
     await cmd("QUIT", 221);
     await writer.close();
   } finally {
-    conn.close();
+    // writer.close() already closed the socket; double close throws BadResource
+    try {
+      conn.close();
+    } catch {
+      // already closed
+    }
   }
 }
 

@@ -2,7 +2,7 @@ import { createFileRoute, Link, Outlet, useNavigate } from "@tanstack/react-rout
 import { useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useLang } from "@/lib/i18n";
-import logoAsset from "@/assets/perrys-balloons-logo.png.asset.json";
+import logoAsset from "@/assets/perrys-balloons-logo.png";
 
 export const Route = createFileRoute("/_authenticated/admin")({
   head: () => ({
@@ -38,8 +38,10 @@ function AdminLayout() {
       <header className="border-b border-primary/30 bg-card text-foreground">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-3 px-5 py-4">
           <div className="flex items-center gap-4">
-            <img src={logoAsset.url} alt="Perry's Balloons" className="h-11 w-auto" />
-            <h1 className="hidden font-display text-lg font-semibold sm:block">{t("admin.panel")}</h1>
+            <img src={logoAsset} alt="Perry's Balloons" className="h-11 w-auto" />
+            <h1 className="hidden font-display text-lg font-semibold sm:block">
+              {t("admin.panel")}
+            </h1>
           </div>
           <div className="ml-auto flex items-center gap-3 text-sm">
             <div className="inline-flex overflow-hidden rounded-full border border-border text-xs font-bold">
@@ -53,7 +55,7 @@ function AdminLayout() {
                 </button>
               ))}
             </div>
-             <Link to="/" className="text-muted-foreground underline">
+            <Link to="/" className="text-muted-foreground underline">
               {t("admin.viewSite")}
             </Link>
             <button onClick={signOut} className="font-semibold text-primary">
@@ -62,7 +64,12 @@ function AdminLayout() {
           </div>
         </div>
         <nav className="mx-auto flex max-w-6xl gap-2 px-5 pb-3">
-          <Link to="/admin" activeOptions={{ exact: true }} className={tab} activeProps={{ className: tabActive }}>
+          <Link
+            to="/admin"
+            activeOptions={{ exact: true }}
+            className={tab}
+            activeProps={{ className: tabActive }}
+          >
             {t("admin.tabDecorations")}
           </Link>
           <Link to="/admin/categorias" className={tab} activeProps={{ className: tabActive }}>

@@ -2,8 +2,6 @@ import { useRef, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useLang } from "@/lib/i18n";
 
-const TEN_YEARS = 60 * 60 * 24 * 365 * 10;
-
 export function ImageDropzone({
   value,
   onChange,
@@ -37,11 +35,8 @@ export function ImageDropzone({
         .from("decoration-images")
         .upload(path, file, { contentType: file.type });
       if (upErr) throw upErr;
-      const { data, error: sErr } = await supabase.storage
-        .from("decoration-images")
-        .createSignedUrl(path, TEN_YEARS);
-      if (sErr || !data) throw sErr;
-      onChange(data.signedUrl);
+      const { data } = supabase.storage.from("decoration-images").getPublicUrl(path);
+      onChange(data.publicUrl);
     } catch (e) {
       setError((e as Error)?.message ?? "Error");
     } finally {

@@ -28,20 +28,28 @@ function Contacto() {
   const { t } = useLang();
   const [nombre, setNombre] = useState("");
   const [fecha, setFecha] = useState("");
+  const [email, setEmail] = useState("");
+  const [telefono, setTelefono] = useState("");
   const [mensaje, setMensaje] = useState("");
-  const [estado, setEstado] = useState<"idle" | "enviando" | "ok" | "error">("idle");
+  const [estado, setEstado] = useState<"idle" | "enviando" | "ok" | "error" | "sin-contacto">("idle");
 
   const enviar = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!email.trim() && !telefono.trim()) {
+      setEstado("sin-contacto");
+      return;
+    }
     setEstado("enviando");
     try {
       const { error } = await supabase.functions.invoke("contacto", {
-        body: { nombre, fecha, mensaje },
+        body: { nombre, fecha, email, telefono, mensaje },
       });
       if (error) throw error;
       setEstado("ok");
       setNombre("");
       setFecha("");
+      setEmail("");
+      setTelefono("");
       setMensaje("");
     } catch {
       setEstado("error");
@@ -81,6 +89,31 @@ function Contacto() {
               className="mt-1 w-full rounded-xl border border-input bg-background px-3 py-2"
             />
           </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div>
+              <label className="text-sm font-semibold">{t("contact.email")}</label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                maxLength={120}
+                className="mt-1 w-full rounded-xl border border-input bg-background px-3 py-2"
+              />
+            </div>
+            <div>
+              <label className="text-sm font-semibold">{t("contact.phone")}</label>
+              <input
+                type="tel"
+                value={telefono}
+                onChange={(e) => setTelefono(e.target.value)}
+                maxLength={30}
+                className="mt-1 w-full rounded-xl border border-input bg-background px-3 py-2"
+              />
+            </div>
+          </div>
+          <p className="-mt-2 text-xs text-muted-foreground">
+            {t("contact.oneRequired")}
+          </p>
           <div>
             <label className="text-sm font-semibold">{t("contact.need")}</label>
             <textarea
@@ -104,6 +137,9 @@ function Contacto() {
           )}
           {estado === "error" && (
             <p className="text-sm font-semibold text-destructive">{t("contact.error")}</p>
+          )}
+          {estado === "sin-contacto" && (
+            <p className="text-sm font-semibold text-destructive">{t("contact.oneRequired")}</p>
           )}
         </form>
 

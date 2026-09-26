@@ -100,20 +100,29 @@ Deno.serve(async (req) => {
 
   let nombre = "",
     fecha = "",
+    email = "",
+    telefono = "",
     mensaje = "";
   try {
     const body = await req.json();
     nombre = String(body.nombre ?? "").slice(0, 80);
     fecha = String(body.fecha ?? "").slice(0, 20);
+    email = String(body.email ?? "").slice(0, 120);
+    telefono = String(body.telefono ?? "").slice(0, 30);
     mensaje = String(body.mensaje ?? "").slice(0, 800);
   } catch {
     return reply(400, "Invalid JSON");
   }
   if (!mensaje.trim()) return reply(400, "mensaje required");
+  if (!email.trim() && !telefono.trim()) {
+    return reply(400, "email or telefono required");
+  }
 
   const lines = [
     nombre && `Nombre: ${nombre}`,
     fecha && `Fecha del evento: ${fecha}`,
+    email && `Correo: ${email}`,
+    telefono && `Teléfono: ${telefono}`,
     "",
     mensaje,
   ].filter((l) => l !== false) as string[];

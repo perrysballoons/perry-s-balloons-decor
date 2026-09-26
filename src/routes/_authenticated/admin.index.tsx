@@ -4,6 +4,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useLang } from "@/lib/i18n";
 import { adminDecorationsQuery, categoriesQuery, type Decoration } from "@/lib/decorations";
+import { ImageDropzone } from "@/components/ImageDropzone";
 
 export const Route = createFileRoute("/_authenticated/admin/")({
   component: AdminDecorations,
@@ -117,7 +118,12 @@ function AdminDecorations() {
           {field(t("admin.tagEn"), "tag_en")}
           {field(t("admin.price"), "price", "number")}
           {field(t("admin.order"), "sort_order", "number")}
-          <div className="md:col-span-2">{field(t("admin.image"), "image_url")}</div>
+          <div className="md:col-span-2">
+            <ImageDropzone
+              value={form.image_url ?? ""}
+              onChange={(url) => setForm((f) => (f ? { ...f, image_url: url } : f))}
+            />
+          </div>
           <div>
             <label className="text-sm font-semibold">{t("admin.category")}</label>
             <select
